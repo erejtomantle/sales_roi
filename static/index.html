@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Analysis Tool</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7WjI6f3knz6tGPTX5Ilt3gDxOA8cMO4+/ " crossorigin="anonymous">
+    <style>
+        /* Define the custom fonts */
+        @font-face {
+            font-family: 'Graphik-Super';
+            src: url("{{ url_for('static', filename='Graphik-Super.otf') }}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Graphik-Regular';
+            src: url("{{ url_for('static', filename='Graphik-Regular.otf') }}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background-color: #1E2B35; /* Set background color outside the white boxes */
+            font-family: 'Graphik-Regular', Arial, sans-serif; /* Use Graphik-Regular for body text */
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff6900;
+            text-align: center;
+            font-family: 'Graphik-Super', Arial, sans-serif; /* Use Graphik-Super for H1 */
+            text-transform: uppercase; /* Make all H1 elements uppercase */
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #000;
+            font-family: 'Graphik-Regular', Arial, sans-serif; /* Use Graphik-Regular for H2 */
+        }
+
+        p {
+            font-family: 'Graphik-Regular', Arial, sans-serif; /* Use Graphik-Regular for P */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff; /* White background for the cards */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 300px; /* Adjust logo size */
+        }
+
+        /* Style for the calculate button */
+        .calculate-btn {
+            display: inline-block;
+            background-color: #ff6900; /* Orange background */
+            color: #fff; /* White text */
+            font-size: 1.5rem; /* H2 equivalent */
+            font-family: 'Graphik-Super', Arial, sans-serif;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            text-align: center;
+            text-transform: uppercase; /* Uppercase text */
+            text-decoration: none; /* No underline */
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth hover effect */
+        }
+
+        .calculate-btn:hover {
+            background-color: #e65a00; /* Darker orange on hover */
+        }
+
+        .btn-container {
+            text-align: center; /* Center the button */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='Mantle logo (high res) white.png') }}" alt="Mantle Logo" class="logo">
+        <h1>Cost Analysis Tool</h1>
+        <form method="POST">
+            <!-- 2 x 2 x 2 Section -->
+            <div class="card">
+                <h2>2 x 2 x 2 Inserts</h2>
+                <label for="option1_inserts">Quantity:</label>
+                <input type="number" id="option1_inserts" name="option1_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option1_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option1_cost" name="option1_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option1_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option1_time" name="option1_time" class="form-control" placeholder="Enter time (days)">
+            </div>
+
+            <!-- 3 x 3 x 3 Section -->
+            <div class="card">
+                <h2>3 x 3 x 3 Inserts</h2>
+                <label for="option2_inserts">Quantity:</label>
+                <input type="number" id="option2_inserts" name="option2_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option2_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option2_cost" name="option2_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option2_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option2_time" name="option2_time" class="form-control" placeholder="Enter time (days)">
+            </div>
+
+            <!-- 4 x 4 x 4 Section -->
+            <div class="card">
+                <h2>4 x 4 x 4 Inserts</h2>
+                <label for="option3_inserts">Quantity:</label>
+                <input type="number" id="option3_inserts" name="option3_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option3_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option3_cost" name="option3_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option3_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option3_time" name="option3_time" class="form-control" placeholder="Enter time (days)">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="btn-container">
+                <button type="submit" class="calculate-btn">Calculate</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

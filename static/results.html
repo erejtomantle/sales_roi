@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Analysis Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7WjI6f3knz6tGPTX5Ilt3gDxOA8cMO4+/ " crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #1E2B35;
+            font-family: 'Graphik-Regular', Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff6900;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-family: 'Graphik-Regular', Arial, sans-serif;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
+        }
+
+        .calculate-btn {
+            display: inline-block;
+            background-color: #ff6900;
+            color: #fff;
+            font-size: 1.5rem;
+            font-family: 'Graphik-Super', Arial, sans-serif;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calculate-btn:hover {
+            background-color: #e65a00;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='Mantle logo (high res) white.png') }}" alt="Mantle Logo" class="logo">
+        <h1>Cost Analysis Results</h1>
+
+        <!-- 2 x 2 x 2 Results -->
+        <div class="card">
+            <h2>2 x 2 x 2 Inserts</h2>
+            <p><strong>Savings/Loss:</strong> {{ savings_2x2x2 }}</p>
+            <p><strong>Time Saved:</strong> {{ time_saved_2x2x2 }} days</p>
+        </div>
+
+        <!-- 3 x 3 x 3 Results -->
+        <div class="card">
+            <h2>3 x 3 x 3 Inserts</h2>
+            <p><strong>Savings/Loss:</strong> {{ savings_3x3x3 }}</p>
+            <p><strong>Time Saved:</strong> {{ time_saved_3x3x3 }} days</p>
+        </div>
+
+        <!-- 4 x 4 x 4 Results -->
+        <div class="card">
+            <h2>4 x 4 x 4 Inserts</h2>
+            <p><strong>Savings/Loss:</strong> {{ savings_4x4x4 }}</p>
+            <p><strong>Time Saved:</strong> {{ time_saved_4x4x4 }} days</p>
+        </div>
+
+        <!-- Total Combined Savings -->
+        <div class="card">
+            <h2>Total Combined Savings</h2>
+            <p><strong>Amount:</strong> {{ total_savings }}</p>
+            <p><strong>Time Saved:</strong> {{ total_time_saved }}</p>
+            {% if breakeven_months is not none %}
+                <p><strong>Breakeven Time:</strong> {{ breakeven_months|round(2) }} months</p>
+            {% else %}
+                <p><strong>Breakeven Time:</strong> Not applicable (no savings)</p>
+            {% endif %}
+        </div>
+
+        <!-- Back Button -->
+        <div class="btn-container">
+            <a href="/" class="calculate-btn">Perform Another Analysis</a>
+        </div>
+    </div>
+</body>
+</html>

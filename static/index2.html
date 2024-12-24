@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Analysis Tool</title>
+
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Graphik Super';
+            src: url('{{ url_for('static', filename='Graphik-Super.otf') }}');
+        }
+
+        @font-face {
+            font-family: 'Graphik Regular';
+            src: url('{{ url_for('static', filename='Graphik-Regular.otf') }}');
+        }
+
+        body {
+            background-color: #1E2B35;  /* Set background color */
+            font-family: 'Graphik Regular', sans-serif;
+            padding: 20px;
+            color: #333;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
+        }
+
+        h1 {
+            color: #ff6900;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-family: 'Graphik Super', sans-serif;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: #ff6900;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-family: 'Graphik Super', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .inputs, .results {
+            width: 48%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            margin-bottom: 15px;
+            width: 50%; /* Reduced the width of input boxes to half of their container */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .calculate-btn {
+            display: inline-block;
+            background-color: #ff6900;
+            color: #fff;
+            font-size: 1.25rem;
+            font-family: 'Graphik Regular', sans-serif;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .calculate-btn:hover {
+            background-color: #e65a00;
+        }
+
+        /* Styling for result cards */
+        .result-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card h2 {
+            color: #ff6900;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .result-card p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .result-card p strong {
+            color: #ff6900;
+        }
+
+        .result-card p span {
+            color: #000;
+        }
+
+        /* Add space between input and result sections */
+        .inputs, .results {
+            margin-top: 20px;
+        }
+
+        /* Header for input and results sections */
+        .section-header {
+            text-align: left;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo and Header outside the input box -->
+    <img src="{{ url_for('static', filename='Mantle logo (high res) white.png') }}" alt="Mantle Logo" class="logo">
+    <h1>Cost Analysis Tool</h1>
+
+    <div class="container">
+        <!-- Inputs Section -->
+        <div class="inputs">
+            <div class="section-header">
+                <h2>Input</h2>
+            </div>
+            <form id="analysis-form" method="POST">
+                <h2>2 x 2 x 2 Inserts</h2>
+                <label for="option1_inserts">Quantity:</label>
+                <input type="number" id="option1_inserts" name="option1_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option1_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option1_cost" name="option1_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option1_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option1_time" name="option1_time" class="form-control" placeholder="Enter time (days)">
+
+                <h2>3 x 3 x 3 Inserts</h2>
+                <label for="option2_inserts">Quantity:</label>
+                <input type="number" id="option2_inserts" name="option2_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option2_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option2_cost" name="option2_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option2_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option2_time" name="option2_time" class="form-control" placeholder="Enter time (days)">
+
+                <h2>4 x 4 x 4 Inserts</h2>
+                <label for="option3_inserts">Quantity:</label>
+                <input type="number" id="option3_inserts" name="option3_inserts" class="form-control" placeholder="Enter quantity">
+
+                <label for="option3_cost">Estimated Cost per Insert:</label>
+                <input type="number" step="0.01" id="option3_cost" name="option3_cost" class="form-control" placeholder="Enter cost ($)">
+
+                <label for="option3_time">Estimated Lead Time (days):</label>
+                <input type="number" id="option3_time" name="option3_time" class="form-control" placeholder="Enter time (days)">
+
+                <!-- Submit Button -->
+                <button type="submit" class="calculate-btn">Calculate</button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results">
+            <div class="section-header">
+                <h2>Results</h2>
+            </div>
+            <div id="result_2x2x2" class="result-card">
+                <h2>2 x 2 x 2 Inserts</h2>
+                <p><strong>Savings:</strong> <span id="savings_2x2x2">$0</span></p>
+                <p><strong>Time Saved:</strong> <span id="time_saved_2x2x2">0 days</span></p>
+            </div>
+            <div id="result_3x3x3" class="result-card">
+                <h2>3 x 3 x 3 Inserts</h2>
+                <p><strong>Savings:</strong> <span id="savings_3x3x3">$0</span></p>
+                <p><strong>Time Saved:</strong> <span id="time_saved_3x3x3">0 days</span></p>
+            </div>
+            <div id="result_4x4x4" class="result-card">
+                <h2>4 x 4 x 4 Inserts</h2>
+                <p><strong>Savings:</strong> <span id="savings_4x4x4">$0</span></p>
+                <p><strong>Time Saved:</strong> <span id="time_saved_4x4x4">0 days</span></p>
+            </div>
+            <div class="result-card">
+                <h2>Total Combined Savings</h2>
+                <p><strong>Amount:</strong> <span id="total_savings">$0</span></p>
+                <p><strong>Time Saved:</strong> <span id="total_time_saved">0 days</span></p>
+                <p><strong>Breakeven Time:</strong> <span id="breakeven_time">Not applicable</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#analysis-form").on("submit", function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: "/",
+                    method: "POST",
+                    data: formData,
+                    success: function(response) {
+                        // Update the results section with the new data
+                        $("#savings_2x2x2").text(response.savings_2x2x2);
+                        $("#time_saved_2x2x2").text(response.time_saved_2x2x2 + " days");
+
+                        $("#savings_3x3x3").text(response.savings_3x3x3);
+                        $("#time_saved_3x3x3").text(response.time_saved_3x3x3 + " days");
+
+                        $("#savings_4x4x4").text(response.savings_4x4x4);
+                        $("#time_saved_4x4x4").text(response.time_saved_4x4x4 + " days");
+
+                        $("#total_savings").text(response.total_savings);
+                        $("#total_time_saved").text(response.total_time_saved);
+                        $("#breakeven_time").text(response.breakeven_time);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
