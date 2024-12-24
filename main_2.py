@@ -5,13 +5,13 @@ import os
 # Initialize Flask app with updated template and static folder paths
 app = Flask(
     __name__,
-    template_folder=r'C:\Users\EthanRejto\PycharmProjects\sales_roi\static',  # Path to HTML templates
-    static_folder=r'C:\Users\EthanRejto\PycharmProjects\sales_roi\static'
-    # Path to static files (including config file)
+    template_folder='static',  # Relative path to the templates folder
+    static_folder='static'     # Relative path to the static folder
 )
 
+
 # Path to the config file
-config_path = r"C:\Users\EthanRejto\PycharmProjects\sales_roi\static\config_costs.json"
+config_path = "static/config_costs.json"
 
 # Load configuration data
 with open(config_path, "r") as f:
